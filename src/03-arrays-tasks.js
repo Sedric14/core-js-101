@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 /* ********************************************************************************************
  *                                                                                            *
  * Please read the following tutorial before implementing tasks:                               *
@@ -504,8 +506,15 @@ function sortCitiesArray(r) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  // throw new Error('Not implemented');
+  if (n === 1) return [[1]];
+  const arr = Array(n).fill().map(() => Array(n).fill(0));
+  const arr2 = arr.map((i, ind) => {
+    i[ind] = 1;
+    return i;
+  });
+  return arr2;
 }
 
 /**
@@ -521,8 +530,17 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  // throw new Error('Not implemented');
+  const len = end - start + 1;
+  const arr = new Array(len);
+  arr.fill(0);
+  arr.reduce((acc, item, index) => {
+    arr[index] = acc;
+    acc += 1;
+    return acc;
+  }, start);
+  return arr;
 }
 
 /**
@@ -536,8 +554,10 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  // throw new Error('Not implemented');
+  const s = new Set(arr);
+  return [...s];
 }
 
 /**
@@ -570,8 +590,21 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  // throw new Error('Not implemented');
+  // console.log(array, keySelector, valueSelector);
+  const map = new Map();
+  array.map((i) => {
+    map.set(keySelector(i), []);
+    return valueSelector(i);
+  });
+  array.map((k) => {
+    const a = map.get(keySelector(k));
+    a.push(valueSelector(k));
+    map.set(keySelector(k), a);
+    return k;
+  });
+  return map;
 }
 
 /**
@@ -587,8 +620,14 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  // throw new Error('Not implemented');
+  const arr2 = [];
+  arr.map((i) => {
+    arr2.push(...childrenSelector(i));
+    return i;
+  });
+  return arr2;
 }
 
 /**
@@ -603,8 +642,13 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  // throw new Error('Not implemented');
+  const res = indexes.reduce((acc, item) => {
+    acc = acc[item];
+    return acc;
+  }, arr);
+  return res;
 }
 
 /**
@@ -625,8 +669,16 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  // throw new Error('Not implemented');
+  if (arr.length === 1) return arr;
+  let arr2;
+  const half = Math.floor(arr.length / 2);
+  const head = arr.slice(0, half);
+  const tail = arr.slice(-half);
+  if (arr.length % 2 === 1) arr2 = [...tail, arr[half], ...head];
+  if (arr.length % 2 === 0) arr2 = [...tail, ...head];
+  return arr2;
 }
 
 module.exports = {
